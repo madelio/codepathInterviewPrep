@@ -1,0 +1,217 @@
+FINAL SOLN KTH SMALLEST
+public class Solution {
+	// DO NOT MODIFY THE LIST. IT IS READ ONLY
+	public int kthsmallest(final List<Integer> a, int k) {
+
+	    List<Integer> b = a;
+	    Collections.sort(b);
+
+
+	    return b.get(k-1);
+	}
+}
+
+
+----
+
+
+NUMARRAY RANGE SUM SOLN
+
+int Solution::numRange(vector<int> &A, int B, int C) {
+    // Do not write main() function.
+    // Do not read input, instead use the arguments to the function.
+    // Do not print the output, instead return values as specified
+    // Still have a doubt. Checkout www.interviewbit.com/pages/sample_codes/ for more details
+
+    int numrange = 0;
+    for (int i = 0; i < A.size(); i++) {
+
+        if (A[i] < C ) {
+
+            int sum = 0;
+
+            /*
+            //if (sum >= B && sum <= C) {
+                numrange++;
+            }*/
+
+            for (int j = 0; j < (A.size() - i); j++ ) {
+
+               sum = sum + A[i+j];
+
+               if (sum >= B && sum <= C) {
+                   numrange++;
+               } else if (sum > C) {
+                   break;
+               }
+            }
+        } else if (A[i] == C) {
+            numrange++;
+        }
+    }
+
+    return numrange;
+}
+
+
+---
+NEXT GREATER ELEM
+
+vector<int> Solution::nextGreater(vector<int> &A) {
+    // Do not write main() function.
+    // Do not read input, instead use the arguments to the function.
+    // Do not print the output, instead return values as specified
+    // Still have a doubt. Checkout www.interviewbit.com/pages/sample_codes/ for more details
+
+    for (int i = 0; i < A.size(); i++) {
+
+        bool found = false;
+        for (int j = i + 1; j < A.size(); j ++) {
+            if (A[i] < A[j]) {
+                A[i] = A[j];
+
+                found = true;
+                break;
+            }
+        }
+
+        if (!found) {
+            A[i] = -1;
+        }
+
+
+    }
+
+
+    return A;
+}
+
+--------
+
+LINKED LIST
+
+/**
+ * Definition for singly-linked list.
+ * class ListNode {
+ *     public int val;
+ *     public ListNode next;
+ *     ListNode(int x) { val = x; next = null; }
+ * }
+ */
+
+public class Solution {
+    public ListNode subtract(ListNode a) {
+
+        int n = 0;
+        ListNode start = a;
+        ListNode midpt;
+        while(a != null) {
+            a = a.next;
+            n++;
+        }
+
+        a = start;
+
+        int ct = 0;
+        int lim;
+        if ((n%2)==0) {
+            lim = (n/2) - 1;
+        } else {
+            lim = (n/2);
+        }
+        while (ct != lim) {
+            a = a.next;
+            ct ++;
+        }
+
+        midpt = a;
+        a.next = reverseList(a.next);
+        a = start;
+
+        ListNode curr = midpt.next;
+        ListNode previous = null;
+
+        for (int ind =0; ind < (n/2); ind++) {
+            a.val = (curr.val - a.val);
+
+            previous = a;
+            a = a.next;
+            curr = curr.next;
+        }
+
+
+        if ((n%2)==0) {
+            previous.next = reverseList(previous.next);
+        } else {
+            a.next = reverseList(a.next);
+        }
+
+        return a = start;
+
+
+    }
+
+
+
+    public ListNode reverseList(ListNode start) {
+        ListNode curr = start;
+        ListNode next;
+        ListNode prev = null;
+
+        while (curr != null) {
+            next = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = next;
+        }
+
+        return prev;
+    }
+}
+
+
+----------
+
+
+LONGEST CONSEC
+
+int Solution::longestConsecutive(const vector<int> &A) {
+    // Do not write main() function.
+    // Do not read input, instead use the arguments to the function.
+    // Do not print the output, instead return values as specified
+    // Still have a doubt. Checkout www.interviewbit.com/pages/sample_codes/ for more details
+
+    unordered_set<int> hash;
+    int longest = 0;
+
+    for (int i = 0; i< A.size(); i++) {
+        hash.insert(A[i]);
+    }
+
+    unordered_set<int>::iterator currNum = hash.begin();
+
+    for (; currNum != hash.end(); currNum++) {
+    
+        int length = 1;
+        int start = *currNum;
+        int consecNum = start + 1;
+
+        std::unordered_set<int>::const_iterator itr = hash.find (consecNum);
+
+        if (hash.find(start-1) == hash.end()) {
+
+            while ( itr != hash.end() ) {
+                consecNum++;
+                itr = hash.find(consecNum);
+                length++;
+            }
+
+            if (length > longest) {
+                longest = length;
+            }
+        }
+    }
+
+    return longest;
+
+}
