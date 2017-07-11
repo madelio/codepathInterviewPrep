@@ -1,25 +1,39 @@
-vector<vector<int> > Solution::permute(vector<int> &A) {
-    // Do not write main() function.
-    // Do not read input, instead use the arguments to the function.
-    // Do not print the output, instead return values as specified
-    // Still have a doubt. Checkout www.interviewbit.com/pages/sample_codes/ for more details
+public class Solution {
 
 
-    vector<vector<int>> result = {};
+   public ArrayList<ArrayList<Integer>> permute(ArrayList<Integer> a) {
+      ArrayList<ArrayList<Integer>> results = new ArrayList<ArrayList<Integer>>();
 
-    for(int i = 0; i < A.size(); i++) {
+      permHelper(a, 1, results);
+      permHelper(a, 0, results);
 
-        vector<int> v = A;
-        for (int x = i, y=i+1; x < (A.size()-1); x++, y++) {
 
-            cout << "insideloop\n";
-            int tmp = v[x];
-            v[x] = v[y];
-            v[y] = tmp;
-            result.push_back(v);
+      return results;
 
-        }
-    }
+   }
 
-    return result;
+   // create
+   public void permHelper(ArrayList<Integer> b, int n, ArrayList<ArrayList<Integer>> results) {
+
+      if (n == (b.size())) {
+         return;
+      }
+
+      ArrayList<Integer> input = new ArrayList<Integer>(b);
+
+      if (n!=0) {
+         System.out.println(input.toString());
+         results.add(input);
+      }
+
+      for (int i = n + 1; i < input.size(); i++ ) {
+
+         int tmp = input.get(n);
+         input.set(n, input.get(i)); 
+         input.set(i, tmp);
+
+         permHelper(input, n+1, results);
+
+      }
+   } 
 }
