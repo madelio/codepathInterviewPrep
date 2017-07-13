@@ -1,0 +1,51 @@
+void Solution::reverseWords(string &A) {
+    // Do not write main() function.
+    // Do not read input, instead use the arguments to the function.
+    // Do not print the output, instead return values as specified
+    // Still have a doubt. Checkout www.interviewbit.com/pages/sample_codes/ for more details
+
+   // const char *str = A.c_str();
+   // int strLen = strlen(str);
+
+   if (A.size() == 1) {
+       return;
+   }
+
+    vector<string> result = {};
+  //  char * curr = {}
+    int start = 0;
+
+    for(int charInd = 0; charInd < A.size(); charInd++) {
+
+       // int curr = A[charInd];
+       // int space = ' ';
+        if ( A[charInd] == ' ' || A[charInd] == '\n') {
+            if (A[charInd+1] == ' ' || charInd == 0 || charInd == (A.size()-1)) {
+                continue;
+            }
+            //cout << string(A.begin()+start, A.begin()+(charInd)) << "\n";
+            result.push_back(string(A.begin()+start, A.begin()+(charInd)));
+            start = charInd + 1;
+
+        }
+
+    }
+
+    result.push_back(string(A.begin()+start, A.end()));
+
+    int indLast = result.size()-1;
+    string tmp = result[indLast];
+
+   for(int i=indLast-1; i>=0; i--) {
+
+    // cout << result[i] << "\n";
+      tmp = tmp + " " + result[i];
+
+
+   }
+
+   A = tmp;
+
+ //  cout << result.size();
+
+}

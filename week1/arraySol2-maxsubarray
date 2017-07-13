@@ -1,0 +1,26 @@
+int Solution::maxSubArray(const vector<int> &A) {
+    // Do not write main() function.
+    // Do not read input, instead use the arguments to the function.
+    // Do not print the output, instead return values as specified
+    // Still have a doubt. Checkout www.interviewbit.com/pages/sample_codes/ for more details
+
+    int max = A[0];
+    int sum = max;
+
+    for(int i = 1; i < A.size(); i++) {
+
+        if ((sum + A[i]) < A[i]) {
+            sum = A[i];
+        } else {
+            sum = sum + A[i];
+        }
+
+        if (sum > max) {
+            max = sum;
+        }
+
+
+    }
+
+    return max;
+}

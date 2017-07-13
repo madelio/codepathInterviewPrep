@@ -1,0 +1,30 @@
+int Solution::strStr(const string &haystack, const string &needle) {
+    // Do not write main() function.
+    // Do not read input, instead use the arguments to the function.
+    // Do not print the output, instead return values as specified
+    // Still have a doubt. Checkout www.interviewbit.com/pages/sample_codes/ for more details
+
+    int needInd = 0;
+
+
+    for (int ind = 0; ind < haystack.size(); ind++) {
+
+        bool found = true;
+
+        for (int inside = 0 ; inside < needle.size(); inside++) {
+
+            if (haystack[ind + inside] != needle[inside]) {
+                found = false;
+                break;
+            }
+
+        }
+
+        if (found) {
+            return ind;
+        }
+
+    }
+
+    return -1;
+}
